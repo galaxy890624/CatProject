@@ -5,11 +5,15 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using AYE;
+
 public class 選項視窗 : Windows<選項視窗>
 {
     [SerializeField] AudioMixer 音控 = null;
     [SerializeField] UnityEvent 開關視窗聲音 = null;
-
+    [SerializeField] Text fps顯示 = null;
+    float fps = 0f;
+    int fpsCount = 0;
     protected override void Update()
     {
         base.Update(); // 先讓Windows底層做事
@@ -42,6 +46,17 @@ public class 選項視窗 : Windows<選項視窗>
                 Time.timeScale = 0.001f;
             }
         }
+
+        // 每累計100次fps才顯示一次
+        if (fpsCount >= 100)
+        {
+            fpsCount = 0;
+            // 顯示FPS
+            fps顯示.text = "FPS : " + (fps / 100f).ToString("F0");
+            fps = 0f;
+        }
+        fps += 1f / Time.unscaledDeltaTime;
+        fpsCount += 1;
     }
 
     [SerializeField] Slider 主音量拉桿 = null;
@@ -103,8 +118,29 @@ public class 選項視窗 : Windows<選項視窗>
         音控.SetFloat("背景音量", 背景音樂拉桿.value);
         音控.SetFloat("音效音量", 音效拉桿.value);
     }
+
+    public void 全螢幕按鈕()
+    {
+        Screen.fullScreen = true;
+    }
+    public void 視窗化按鈕()
+    {
+        Screen.SetResolution((int)(Screen.width * 0.5f), (int)(Screen.height * 0.5f), false);
+    }
+    public void 全螢幕視窗化()
+    {
+        Screen.SetResolution(Screen.width, Screen.height, false);
+    }
+    public void 高畫質()
+    {
+        QualitySettings.SetQualityLevel(2);
+    }
+    public void 中畫質()
+    {
+        QualitySettings.SetQualityLevel(1);
+    }
+    public void 低畫質()
+    {
+        QualitySettings.SetQualityLevel(0);
+    }
 }
-
-
-
-
