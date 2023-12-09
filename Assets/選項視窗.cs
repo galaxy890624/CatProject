@@ -52,7 +52,7 @@ public class 選項視窗 : Windows<選項視窗>
         {
             fpsCount = 0;
             // 顯示FPS
-            fps顯示.text = "FPS : " + (fps / 100f).ToString("F0");
+            fps顯示.text = "FPS : " + (fps / 100f).ToString("F1");
             fps = 0f;
         }
         fps += 1f / Time.unscaledDeltaTime;
