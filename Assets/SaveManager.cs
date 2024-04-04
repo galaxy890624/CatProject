@@ -105,7 +105,7 @@ public class SaveManager
             }
         }
     }
-    int _score = 0;
+    int _score = 0; // 每次新的遊戲都歸零, 不需要重置的不用寫這行
     public Action 分數變化事件 = null;
 
     /// <summary>最高分(存讀檔)</summary>
@@ -177,7 +177,9 @@ public class SaveManager
             商店刷新事件.Invoke(); // 刷新
         }
     }
-
+    /// <summary>
+    /// 鑰匙顯示器
+    /// </summary>
     public int 任務道具
     {
         get { return _任務道具; }
